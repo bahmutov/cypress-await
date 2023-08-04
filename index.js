@@ -1,38 +1,33 @@
-const babel = require('@babel/parser')
-const walk = require('acorn-walk')
+const babel = require('@babel/core')
 
-const source = `
-  it('works', async () => {
-    const url = await cy.location()
+function cyAwait(code) {
+  const output = babel.transformSync(code, {
+    plugins: [
+      function myCustomPlugin() {
+        return {
+          visitor: {
+            VariableDeclarator(path) {
+              console.log('VariableDeclarator')
+            },
+            AwaitExpression(path) {
+              if (
+                path.node.argument.callee.type === 'MemberExpression' &&
+                path.node.argument.callee.object.name === 'cy'
+              ) {
+                console.log('AwaitExpression for cy')
+                // remove the "await" expression
+                path.parent.expression = path.node.argument
+              }
+              // console.log(path.node)
+            },
+          },
+        }
+      },
+    ],
   })
-`
-
-const plugins = [
-  'estree', // To generate estree compatible AST
-]
-
-const AST = babel.parse(source, {
-  plugins,
-  sourceType: 'script',
-}).program
-
-// console.log(AST)
-
-function isAssignmentFromCy(node) {
-  // console.log(node)
-  const firstDeclarator = node.declarations[0].init
-  return (
-    firstDeclarator.type === 'AwaitExpression' &&
-    firstDeclarator.argument.callee?.object.name === 'cy'
-  )
+  return output.code
 }
 
-walk.simple(AST, {
-  VariableDeclaration(node) {
-    // check if we are declaring
-    // const|var|let foo = await cy...
-    if (isAssignmentFromCy(node)) {
-      console.log('%s %s = await cy', node.kind, node.declarations[0].id.name)
-    }
-  },
-})
+// console.log(output.code)
+
+module.exports = { cyAwait }
