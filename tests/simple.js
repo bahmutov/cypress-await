@@ -10,7 +10,7 @@ test('removes await', (t) => {
   t.is(
     output,
     stripIndent`
-      cy.log()
+      cy.log();
     `,
   )
 })
