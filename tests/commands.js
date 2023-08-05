@@ -4,18 +4,14 @@ const { cyAwait } = require('..')
 
 test.skip('several assignments', (t) => {
   const input = stripIndent`
-    n = await cy.get('#projects-count')
+    const n = await cy.get('#projects-count').invoke('text')
   `
   const output = cyAwait(input)
   console.log(output)
   t.is(
     output,
     stripIndent`
-      let name;
-      cy.location('pathname').then(___val => {
-        name = ___val;
-        cy.log(name);
-      });
+      cy.get('#projects-count').invoke('text').then(n => {});
     `,
   )
 })

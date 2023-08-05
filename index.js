@@ -14,45 +14,50 @@ function cyAwait(code) {
         return {
           visitor: {
             VariableDeclarator(path) {
-              console.log('VariableDeclarator')
+              // console.log('VariableDeclarator')
               if (path.node.init && isCyAwaitExpression(path.node.init)) {
                 const variableName = path.node.id.name
-                console.log('from await cy %s', variableName)
+                // console.log('declarator %s = await cy', variableName)
                 const myIndex = path.parentPath.parentPath.node.body.findIndex(
                   (node) =>
                     node.declarations && node.declarations.includes(path.node),
                 )
-                console.log(path.parentPath.parentPath.node.body)
-                console.log('my index', myIndex)
-                // and remove the rest of the statements
-                path.parentPath.parentPath.node.body.length = myIndex
+                // console.log(path.parentPath.parentPath.node.body)
+                // console.log('my index', myIndex)
+
                 if (myIndex !== -1) {
                   const statementsAfterMe = path.parentPath.parentPath.node.body
                     .slice(myIndex + 1)
                     .map((node) => babel.types.cloneNode(node))
+                  // console.log('statements after me')
+                  // console.log(statementsAfterMe)
+                  // and remove the rest of the statements
+                  path.parentPath.parentPath.node.body.length = myIndex
 
-                  path.parent = babel.types.expressionStatement(
-                    babel.types.callExpression(
-                      // callee
-                      babel.types.memberExpression(
-                        path.node.init.argument,
-                        babel.types.Identifier('then'),
-                      ),
-                      [
-                        babel.types.arrowFunctionExpression(
-                          [babel.types.Identifier('___val')],
-                          babel.types.blockStatement([
-                            babel.types.expressionStatement(
-                              babel.types.assignmentExpression(
-                                '=',
-                                babel.types.Identifier(variableName),
-                                babel.types.Identifier('___val'),
-                              ),
-                            ),
-                            ...statementsAfterMe,
-                          ]),
+                  path.parentPath.parentPath.node.body.push(
+                    babel.types.expressionStatement(
+                      babel.types.callExpression(
+                        // callee
+                        babel.types.memberExpression(
+                          path.node.init.argument,
+                          babel.types.Identifier('then'),
                         ),
-                      ],
+                        [
+                          babel.types.arrowFunctionExpression(
+                            [babel.types.Identifier(variableName)],
+                            babel.types.blockStatement([
+                              // babel.types.expressionStatement(
+                              //   babel.types.assignmentExpression(
+                              //     '=',
+                              //     babel.types.Identifier(variableName),
+                              //     babel.types.Identifier('___val'),
+                              //   ),
+                              // ),
+                              ...statementsAfterMe,
+                            ]),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 }

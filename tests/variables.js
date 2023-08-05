@@ -39,18 +39,18 @@ test('use variable', (t) => {
   )
 })
 
-test.skip('variable declaration', (t) => {
+test('variable declaration', (t) => {
   const input = stripIndent`
     const name = await cy.location('pathname')
     cy.log(name)
   `
   const output = cyAwait(input)
-  console.log(output)
+  // console.log(output)
   t.is(
     output,
     stripIndent`
-      cy.location('pathname').then(___val => {
-        name = ___val;
+      cy.location('pathname').then(name => {
+        cy.log(name);
       });
     `,
   )
