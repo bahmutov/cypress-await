@@ -5,6 +5,7 @@ module.exports = defineConfig({
   e2e: {
     // baseUrl, etc
     baseUrl: 'https://glebbahmutov.com/',
+    viewportHeight: 1200,
     setupNodeEvents(on, config) {
       on('file:preprocessor', cyAwaitPreprocessor)
     },

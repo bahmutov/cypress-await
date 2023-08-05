@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "ava",
-    "watch": "ava -w"
+    "watch": "ava -w",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "keywords": [
     "cypress-plugin"
