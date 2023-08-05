@@ -44,7 +44,7 @@ test('three assignments', (t) => {
   )
 })
 
-test.skip('get number and assert', (t) => {
+test('get number and assert', (t) => {
   const input = stripIndent`
     await cy.visit('/')
     const n = await cy.get('#projects-count').invoke('text').then(parseInt)
@@ -55,10 +55,9 @@ test.skip('get number and assert', (t) => {
   t.is(
     output,
     stripIndent`
-      let name;
-      cy.location('pathname').then(___val => {
-        name = ___val;
-        cy.log(name);
+      cy.visit('/');
+      cy.get('#projects-count').invoke('text').then(parseInt).then(n => {
+        expect(n, 'projects').to.be.within(350, 400);
       });
     `,
   )
