@@ -1,9 +1,23 @@
 const babel = require('@babel/core')
 
+function isCyObject(node) {
+  if (!node) {
+    return false
+  }
+  if (node.type === 'MemberExpression' && node.object.name === 'cy') {
+    return true
+  }
+  return (
+    (node.type === 'CallExpression' && node.object?.name === 'cy') ||
+    (node.type === 'MemberExpression' && isCyObject(node.object?.callee))
+  )
+}
+
 function isCyAwaitExpression(node) {
   return (
-    node.argument.callee.type === 'MemberExpression' &&
-    node.argument.callee.object.name === 'cy'
+    (node.argument.callee.type === 'MemberExpression' &&
+      node.argument.callee.object.name === 'cy') ||
+    isCyObject(node.argument.callee)
   )
 }
 
@@ -15,6 +29,7 @@ function cyAwait(code) {
           visitor: {
             VariableDeclarator(path) {
               // console.log('VariableDeclarator')
+              // console.log(path.node.init.argument.callee)
               if (path.node.init && isCyAwaitExpression(path.node.init)) {
                 const variableName = path.node.id.name
                 // console.log('declarator %s = await cy', variableName)

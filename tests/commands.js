@@ -2,7 +2,21 @@ const test = require('ava')
 const { stripIndent } = require('common-tags')
 const { cyAwait } = require('..')
 
-test.skip('several assignments', (t) => {
+test('one assignment', (t) => {
+  const input = stripIndent`
+    const n = await cy.get('#projects-count')
+  `
+  const output = cyAwait(input)
+  // console.log(output)
+  t.is(
+    output,
+    stripIndent`
+      cy.get('#projects-count').then(n => {});
+    `,
+  )
+})
+
+test('two assignments', (t) => {
   const input = stripIndent`
     const n = await cy.get('#projects-count').invoke('text')
   `
@@ -12,6 +26,20 @@ test.skip('several assignments', (t) => {
     output,
     stripIndent`
       cy.get('#projects-count').invoke('text').then(n => {});
+    `,
+  )
+})
+
+test('three assignments', (t) => {
+  const input = stripIndent`
+    const n = await cy.get('#projects-count').invoke('text').then(parseInt)
+  `
+  const output = cyAwait(input)
+  console.log(output)
+  t.is(
+    output,
+    stripIndent`
+      cy.get('#projects-count').invoke('text').then(parseInt).then(n => {});
     `,
   )
 })
