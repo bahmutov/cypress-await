@@ -14,14 +14,31 @@ function cyAwait(code) {
         return {
           visitor: {
             VariableDeclarator(path) {
-              console.log('VariableDeclarator')
+              // console.log('VariableDeclarator')
             },
             AssignmentExpression(path) {
               // console.log(path.node.left)
               // console.log(path.node.right)
               if (isCyAwaitExpression(path.node.right)) {
                 const variableName = path.node.left.name
-                console.log('%s = await cy', variableName)
+                // console.log('%s = await cy', variableName)
+
+                // console.log(path.node)
+                const myIndex = path.parentPath.parentPath.node.body.findIndex(
+                  (node) => node.expression === path.node,
+                )
+                // console.log('my index', myIndex)
+                const statementsAfterMe = path.parentPath.parentPath.node.body
+                  .slice(myIndex + 1)
+                  .map((node) => babel.types.cloneNode(node))
+                // and remove the rest of the statements
+                path.parentPath.parentPath.node.body.length = myIndex + 1
+                // console.log(
+                //   ...statementsAfterMe.map((s) => babel.types.cloneNode(s)),
+                // )
+
+                // console.log(path.parentPath.parentPath.node.body)
+
                 // remove the "variable = await" part
                 path.parent.expression = babel.types.callExpression(
                   // callee
@@ -40,10 +57,12 @@ function cyAwait(code) {
                             babel.types.Identifier('___val'),
                           ),
                         ),
+                        ...statementsAfterMe,
                       ]),
                     ),
                   ],
                 )
+                // path.skip()
 
                 // path.node.right.argument
                 // append ".then(x => ...)" expression
@@ -51,7 +70,7 @@ function cyAwait(code) {
             },
             AwaitExpression(path) {
               if (isCyAwaitExpression(path.node)) {
-                console.log('AwaitExpression for cy')
+                // console.log('AwaitExpression for cy')
                 // remove the "await" expression
                 path.parent.expression = path.node.argument
               }
