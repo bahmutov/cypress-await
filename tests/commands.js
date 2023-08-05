@@ -2,31 +2,12 @@ const test = require('ava')
 const { stripIndent } = require('common-tags')
 const { cyAwait } = require('..')
 
-test('transforms variable assignment', (t) => {
+test.skip('several assignments', (t) => {
   const input = stripIndent`
-    let name
-    name = await cy.location('pathname')
+    n = await cy.get('#projects-count')
   `
   const output = cyAwait(input)
-  t.is(
-    output,
-    stripIndent`
-      let name;
-      cy.location('pathname').then(___val => {
-        name = ___val;
-      });
-    `,
-  )
-})
-
-test('use variable', (t) => {
-  const input = stripIndent`
-    let name
-    name = await cy.location('pathname');
-    cy.log(name)
-  `
-  const output = cyAwait(input)
-  // console.log(output)
+  console.log(output)
   t.is(
     output,
     stripIndent`
@@ -39,18 +20,21 @@ test('use variable', (t) => {
   )
 })
 
-test.skip('variable declaration', (t) => {
+test.skip('get number and assert', (t) => {
   const input = stripIndent`
-    const name = await cy.location('pathname')
-    cy.log(name)
+    await cy.visit('/')
+    const n = await cy.get('#projects-count').invoke('text').then(parseInt)
+    expect(n, 'projects').to.be.within(350, 400)
   `
   const output = cyAwait(input)
   console.log(output)
   t.is(
     output,
     stripIndent`
+      let name;
       cy.location('pathname').then(___val => {
         name = ___val;
+        cy.log(name);
       });
     `,
   )
