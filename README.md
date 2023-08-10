@@ -1,4 +1,4 @@
-# cy-await
+# cypress-await
 
 > Not ready yet
 

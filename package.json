@@ -1,5 +1,5 @@
 {
-  "name": "cy-await",
+  "name": "cypress-await",
   "version": "1.0.0",
   "description": "Cypress async await magic 🪄",
   "main": "index.js",
