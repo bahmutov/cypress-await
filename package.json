@@ -1,6 +1,6 @@
 {
   "name": "cypress-await",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Cypress async await magic 🪄",
   "main": "index.js",
   "files": [
@@ -10,7 +10,8 @@
     "test": "ava",
     "watch": "ava -w",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "cypress-plugin"
@@ -22,7 +23,8 @@
     "ava": "^5.3.1",
     "common-tags": "^1.8.2",
     "cypress": "^12.17.3",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "semantic-release": "^21.0.7"
   },
   "dependencies": {
     "@babel/core": "^7.22.9",
@@ -30,5 +32,9 @@
     "chokidar": "^3.5.3",
     "debug": "^4.3.4",
     "temp-write": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bahmutov/cy-await.git"
   }
 }
