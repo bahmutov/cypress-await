@@ -5,7 +5,7 @@ const path = require('path')
 const chokidar = require('chokidar')
 const cyBrowserify = require('@cypress/browserify-preprocessor')()
 const tempWrite = require('temp-write')
-const { cyAwait } = require('..')
+const { cyAwait } = require('./cy-await')
 
 // bundled[filename] => promise
 const bundled = {}

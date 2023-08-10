@@ -1,6 +1,6 @@
 const test = require('ava')
 const { stripIndent } = require('common-tags')
-const { cyAwait } = require('..')
+const { cyAwait } = require('../src/cy-await')
 
 test('transforms variable assignment', (t) => {
   const input = stripIndent`
