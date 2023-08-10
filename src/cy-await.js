@@ -21,7 +21,7 @@ function isCyAwaitExpression(node) {
   )
 }
 
-function cyAwait(code) {
+function cyAwaitOnce(code) {
   const output = babel.transformSync(code, {
     plugins: [
       function myCustomPlugin() {
@@ -88,6 +88,7 @@ function cyAwait(code) {
                 const statementsAfterMe = path.parentPath.parentPath.node.body
                   .slice(myIndex + 1)
                   .map((node) => babel.types.cloneNode(node))
+
                 // and remove the rest of the statements
                 path.parentPath.parentPath.node.body.length = myIndex + 1
                 path.parent.expression = babel.types.callExpression(
@@ -131,5 +132,10 @@ function cyAwait(code) {
 }
 
 // console.log(output.code)
+
+function cyAwait(code) {
+  const output = cyAwaitOnce(code)
+  return output
+}
 
 module.exports = { cyAwait }
