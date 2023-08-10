@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Cypress async await magic 🪄",
   "main": "index.js",
+  "files": [
+    "src"
+  ],
   "scripts": {
     "test": "ava",
     "watch": "ava -w",

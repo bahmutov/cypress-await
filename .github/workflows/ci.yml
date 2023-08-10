@@ -1,7 +1,7 @@
 name: ci
 on: push
 jobs:
-  cypress-run:
+  test:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -13,3 +13,22 @@ jobs:
         with:
           # run unit tests
           build: npm test
+
+  release:
+    runs-on: ubuntu-20.04
+    # only try releasing from the main branch
+    if: github.ref == 'refs/heads/main'
+    needs:
+      - test
+    steps:
+      - name: Checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v3
+
+      - name: Semantic Release 🚀
+        uses: cycjimmy/semantic-release-action@v3
+        with:
+          branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
