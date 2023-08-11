@@ -12,7 +12,7 @@ test('transforms variable assignment', (t) => {
     output,
     stripIndent`
       let name;
-      cy.location('pathname').then(___val => {
+      cy.location('pathname').then(async ___val => {
         name = ___val;
       });
     `,
@@ -31,7 +31,7 @@ test('use variable', (t) => {
     output,
     stripIndent`
       let name;
-      cy.location('pathname').then(___val => {
+      cy.location('pathname').then(async ___val => {
         name = ___val;
         cy.log(name);
       });
@@ -49,7 +49,7 @@ test('variable declaration', (t) => {
   t.is(
     output,
     stripIndent`
-      cy.location('pathname').then(name => {
+      cy.location('pathname').then(async name => {
         cy.log(name);
       });
     `,

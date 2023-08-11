@@ -14,11 +14,20 @@ function isCyObject(node) {
 }
 
 function isCyAwaitExpression(node) {
-  return (
-    (node.argument.callee.type === 'MemberExpression' &&
-      node.argument.callee.object.name === 'cy') ||
-    isCyObject(node.argument.callee)
-  )
+  if (node.type !== 'AwaitExpression') {
+    return false
+  }
+  try {
+    return (
+      (node.argument.callee.type === 'MemberExpression' &&
+        node.argument.callee.object.name === 'cy') ||
+      isCyObject(node.argument.callee)
+    )
+  } catch (err) {
+    console.error('error', err)
+    console.error(node)
+    return false
+  }
 }
 
 function cyAwaitOnce(code) {
@@ -70,6 +79,7 @@ function cyAwaitOnce(code) {
                               // ),
                               ...statementsAfterMe,
                             ]),
+                            true /* async */,
                           ),
                         ],
                       ),
@@ -110,6 +120,7 @@ function cyAwaitOnce(code) {
                         ),
                         ...statementsAfterMe,
                       ]),
+                      true /* async */,
                     ),
                   ],
                 )
@@ -135,7 +146,11 @@ function cyAwaitOnce(code) {
 
 function cyAwait(code) {
   const output = cyAwaitOnce(code)
-  return output
+  // console.log(output)
+  if (output === code) {
+    return output
+  }
+  return cyAwait(output)
 }
 
 module.exports = { cyAwait }
