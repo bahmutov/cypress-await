@@ -11,7 +11,7 @@ test('one assignment', (t) => {
   t.is(
     output,
     stripIndent`
-      cy.get('#projects-count').then(n => {});
+      cy.get('#projects-count').then(async n => {});
     `,
   )
 })
@@ -25,7 +25,7 @@ test('two assignments', (t) => {
   t.is(
     output,
     stripIndent`
-      cy.get('#projects-count').invoke('text').then(n => {});
+      cy.get('#projects-count').invoke('text').then(async n => {});
     `,
   )
 })
@@ -39,7 +39,7 @@ test('three assignments', (t) => {
   t.is(
     output,
     stripIndent`
-      cy.get('#projects-count').invoke('text').then(parseInt).then(n => {});
+      cy.get('#projects-count').invoke('text').then(parseInt).then(async n => {});
     `,
   )
 })
@@ -56,7 +56,7 @@ test('get number and assert', (t) => {
     output,
     stripIndent`
       cy.visit('/');
-      cy.get('#projects-count').invoke('text').then(parseInt).then(n => {
+      cy.get('#projects-count').invoke('text').then(parseInt).then(async n => {
         expect(n, 'projects').to.be.within(350, 400);
       });
     `,
