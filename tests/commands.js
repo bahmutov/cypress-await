@@ -21,7 +21,7 @@ test('two assignments', (t) => {
     const n = await cy.get('#projects-count').invoke('text')
   `
   const output = cyAwait(input)
-  console.log(output)
+  // console.log(output)
   t.is(
     output,
     stripIndent`
@@ -35,7 +35,7 @@ test('three assignments', (t) => {
     const n = await cy.get('#projects-count').invoke('text').then(parseInt)
   `
   const output = cyAwait(input)
-  console.log(output)
+  // console.log(output)
   t.is(
     output,
     stripIndent`
@@ -51,7 +51,7 @@ test('get number and assert', (t) => {
     expect(n, 'projects').to.be.within(350, 400)
   `
   const output = cyAwait(input)
-  console.log(output)
+  // console.log(output)
   t.is(
     output,
     stripIndent`
