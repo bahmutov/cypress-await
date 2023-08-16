@@ -60,7 +60,10 @@ function initCyAwaitSyncModePreprocessor(options = {}) {
 
     if (options.specPattern) {
       // check if the user wants us to preprocess this file
-      if (minimatch(filePath, options.specPattern)) {
+      if (
+        filePath.endsWith(options.specPattern) ||
+        minimatch(filePath, options.specPattern)
+      ) {
         debug('should preprocess %s', filePath)
       } else {
         debug('default preprocessor for %s', filePath)

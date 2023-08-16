@@ -94,10 +94,12 @@ You can apply this preprocessor only to some specs using [minimatch](https://git
 ```js
 setupNodeEvents(on, config) {
   on('file:preprocessor', cyAwaitPreprocessor({
-    specPattern: '*.sync.cy.js'
+    specPattern: '**/*.sync.cy.js'
   }))
 }
 ```
+
+For simplicity, you can also use the end of the files that need to be transpiled. For example, to transpile all files that end with `.sync.cy.js`, you can use `specPattern: '.sync.cy.js'`
 
 ## Show transpiled output
 
