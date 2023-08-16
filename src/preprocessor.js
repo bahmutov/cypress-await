@@ -11,9 +11,14 @@ const { cyAwait } = require('./cy-await')
 // bundled[filename] => promise
 const bundled = {}
 
-const bundleAFile = (filePath, outputPath) => {
+const bundleAFile = (filePath, outputPath, debugOutput) => {
   const src = fs.readFileSync(filePath, 'utf8')
   const output = cyAwait(src)
+  if (debugOutput) {
+    console.log('cypress-await transpiled %s', filePath)
+    console.log(output)
+    console.log('-----------------')
+  }
   const writtenTempFilename = tempWrite.sync(
     output,
     path.basename(filePath) + '.js',
@@ -72,7 +77,7 @@ function initCyAwaitModePreprocessor(options = {}) {
       debug('watching the file %s', filePath)
 
       // start bundling the first time
-      bundled[filePath] = bundleAFile(filePath, outputPath)
+      bundled[filePath] = bundleAFile(filePath, outputPath, options.debugOutput)
 
       // and start watching the input Markdown file
       const watcher = chokidar.watch(filePath)
@@ -80,7 +85,11 @@ function initCyAwaitModePreprocessor(options = {}) {
         // if the Markdown file changes, we want to rebundle it
         // and tell the Test Runner to run the tests again
         debug('file %s has changed', filePath)
-        bundled[filePath] = bundleAFile(filePath, outputPath)
+        bundled[filePath] = bundleAFile(
+          filePath,
+          outputPath,
+          options.debugOutput,
+        )
         bundled[filePath].then(() => {
           debug('finished bundling, emit rerun')
           file.emit('rerun')
@@ -98,7 +107,7 @@ function initCyAwaitModePreprocessor(options = {}) {
     }
 
     // non-interactive mode
-    bundled[filePath] = bundleAFile(filePath, outputPath)
+    bundled[filePath] = bundleAFile(filePath, outputPath, options.debugOutput)
     return bundled[filePath]
   }
 

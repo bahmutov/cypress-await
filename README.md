@@ -99,6 +99,20 @@ setupNodeEvents(on, config) {
 }
 ```
 
+## Show transpiled output
+
+Set the preprocessor with the `debugOutput: true` option
+
+```js
+setupNodeEvents(on, config) {
+  on('file:preprocessor', cyAwaitPreprocessor({
+    debugOutput: true
+  }))
+}
+```
+
+The transpiled output will appear in the terminal.
+
 ## Debugging
 
 Start Cypress with OS environment variable `DEBUG=cypress-await`
