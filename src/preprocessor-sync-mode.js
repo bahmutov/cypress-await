@@ -1,10 +1,11 @@
 // @ts-check
-const debug = require('debug')('cy-await')
+const debug = require('debug')('cypress-await')
 const fs = require('fs')
 const path = require('path')
 const chokidar = require('chokidar')
 const cyBrowserify = require('@cypress/browserify-preprocessor')()
 const tempWrite = require('temp-write')
+const { minimatch } = require('minimatch')
 const { cyAwaitSyncMode } = require('./cy-await')
 
 // bundled[filename] => promise
@@ -28,48 +29,64 @@ const bundleAFile = (filePath, outputPath) => {
   })
 }
 
-const cyAwaitSyncModePreprocessor = (file) => {
-  const { filePath, outputPath, shouldWatch } = file
+function initCyAwaitSyncModePreprocessor(options = {}) {
+  debug('initCyAwaitSyncModePreprocessor options %o', options)
 
-  debug({ filePath, outputPath, shouldWatch })
+  const cyAwaitSyncModePreprocessor = (file) => {
+    const { filePath, outputPath, shouldWatch } = file
 
-  if (bundled[filePath]) {
-    debug('already have bundle promise for file %s', filePath)
-    return bundled[filePath]
-  }
+    debug({ filePath, outputPath, shouldWatch })
 
-  if (shouldWatch) {
-    debug('watching the file %s', filePath)
+    if (options.specPattern) {
+      // check if the user wants us to preprocess this file
+      if (minimatch(filePath, options.specPattern)) {
+        debug('should preprocess %s', filePath)
+      } else {
+        debug('default preprocessor for %s', filePath)
+        return cyBrowserify(file)
+      }
+    }
 
-    // start bundling the first time
-    bundled[filePath] = bundleAFile(filePath, outputPath)
+    if (bundled[filePath]) {
+      debug('already have bundle promise for file %s', filePath)
+      return bundled[filePath]
+    }
 
-    // and start watching the input Markdown file
-    const watcher = chokidar.watch(filePath)
-    watcher.on('change', () => {
-      // if the Markdown file changes, we want to rebundle it
-      // and tell the Test Runner to run the tests again
-      debug('file %s has changed', filePath)
+    if (shouldWatch) {
+      debug('watching the file %s', filePath)
+
+      // start bundling the first time
       bundled[filePath] = bundleAFile(filePath, outputPath)
-      bundled[filePath].then(() => {
-        debug('finished bundling, emit rerun')
-        file.emit('rerun')
+
+      // and start watching the input Markdown file
+      const watcher = chokidar.watch(filePath)
+      watcher.on('change', () => {
+        // if the Markdown file changes, we want to rebundle it
+        // and tell the Test Runner to run the tests again
+        debug('file %s has changed', filePath)
+        bundled[filePath] = bundleAFile(filePath, outputPath)
+        bundled[filePath].then(() => {
+          debug('finished bundling, emit rerun')
+          file.emit('rerun')
+        })
       })
-    })
 
-    // when the test runner closes this spec
-    file.on('close', () => {
-      debug('file %s close, removing bundle promise', filePath)
-      delete bundled[filePath]
-      watcher.close()
-    })
+      // when the test runner closes this spec
+      file.on('close', () => {
+        debug('file %s close, removing bundle promise', filePath)
+        delete bundled[filePath]
+        watcher.close()
+      })
 
+      return bundled[filePath]
+    }
+
+    // non-interactive mode
+    bundled[filePath] = bundleAFile(filePath, outputPath)
     return bundled[filePath]
   }
 
-  // non-interactive mode
-  bundled[filePath] = bundleAFile(filePath, outputPath)
-  return bundled[filePath]
+  return cyAwaitSyncModePreprocessor
 }
 
-module.exports = cyAwaitSyncModePreprocessor
+module.exports = initCyAwaitSyncModePreprocessor
