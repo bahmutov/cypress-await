@@ -101,6 +101,8 @@ function initCyAwaitModePreprocessor(options = {}) {
     bundled[filePath] = bundleAFile(filePath, outputPath)
     return bundled[filePath]
   }
+
+  return cyAwaitPreprocessor
 }
 
 module.exports = initCyAwaitModePreprocessor

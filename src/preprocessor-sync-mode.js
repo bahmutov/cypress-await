@@ -29,6 +29,22 @@ const bundleAFile = (filePath, outputPath) => {
   })
 }
 
+/**
+ * Initialize Cypress spec file preprocessor to automatically
+ * convert "n = cy..." syntax into "cy...then(n => ...)".
+ * @example
+ *    // Default use
+ *    setupNodeEvents(on, config) {
+ *      on('file:preprocessor', cyAwaitPreprocessor())
+ *    }
+ * @example
+ *    // Only transform some files using minimatch
+ *    setupNodeEvents(on, config) {
+ *      on('file:preprocessor', cyAwaitPreprocessor({
+ *        specPattern: '*.sync.cy.js'
+ *      }))
+ *    }
+ */
 function initCyAwaitSyncModePreprocessor(options = {}) {
   debug('initCyAwaitSyncModePreprocessor options %o', options)
 
