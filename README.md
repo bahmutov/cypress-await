@@ -25,7 +25,7 @@ const cyAwaitPreprocessor = require('cypress-await/src/preprocessor')
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      on('file:preprocessor', cyAwaitPreprocessor)
+      on('file:preprocessor', cyAwaitPreprocessor())
     },
   },
 })
@@ -70,7 +70,7 @@ const cyAwaitPreprocessor = require('cypress-await/src/preprocessor-sync-mode')
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      on('file:preprocessor', cyAwaitPreprocessor)
+      on('file:preprocessor', cyAwaitPreprocessor())
     },
   },
 })
@@ -85,6 +85,27 @@ it('shows the number of projects', () => {
   cy.log(n)
   expect(n, 'number of projects').to.be.within(350, 400)
 })
+```
+
+## Transform some spec files
+
+You can apply this preprocessor only to some specs using [minimatch](https://github.com/isaacs/minimatch) over the full spec source filepath
+
+```js
+setupNodeEvents(on, config) {
+  on('file:preprocessor', cyAwaitPreprocessor({
+    specPattern: '*.sync.cy.js'
+  }))
+}
+```
+
+## Debugging
+
+Start Cypress with OS environment variable `DEBUG=cypress-await`
+
+```
+# on Mac or Linux
+$ DEBUG=cypress-await npx cypress open
 ```
 
 ## Small print

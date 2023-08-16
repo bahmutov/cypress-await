@@ -32,6 +32,7 @@
     "@cypress/browserify-preprocessor": "^3.0.2",
     "chokidar": "^3.5.3",
     "debug": "^4.3.4",
+    "minimatch": "^9.0.3",
     "temp-write": "^4.0.0"
   },
   "repository": {

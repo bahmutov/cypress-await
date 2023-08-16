@@ -7,7 +7,7 @@ module.exports = defineConfig({
     baseUrl: 'https://glebbahmutov.com/',
     viewportHeight: 1200,
     setupNodeEvents(on, config) {
-      on('file:preprocessor', cyAwaitPreprocessor)
+      on('file:preprocessor', cyAwaitPreprocessor())
     },
   },
 })
