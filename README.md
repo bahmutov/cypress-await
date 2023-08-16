@@ -1,8 +1,91 @@
 # cypress-await
 
-> Not ready yet
+> Cypress spec preprocessor that adds the "async / await" syntax
 
-**do not use**
+## Install
+
+Add this package as a dev dependency
+
+```
+$ npm i -D cypress-await
+# or using Yarn
+$ yarn add -D cypress-await
+```
+
+## Use as a preprocessor
+
+Add the following to your `cypress.config.js` file:
+
+```js
+// cypress.config.js
+const { defineConfig } = require('cypress')
+// https://github.com/bahmutov/cypress-await
+const cyAwaitPreprocessor = require('cypress-await/src/preprocessor')
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      on('file:preprocessor', cyAwaitPreprocessor)
+    },
+  },
+})
+```
+
+In your spec files you can use `value = await cy...` instead of `cy....then(value => )`
+
+```js
+it('shows the number of projects', async () => {
+  await cy.visit('/')
+  const n = await cy.get('#projects-count').invoke('text').then(parseInt)
+  cy.log(n)
+  expect(n, 'number of projects').to.be.within(350, 400)
+})
+```
+
+The above code is equivalent to the "plain" Cypress test
+
+```js
+it('shows the number of projects', () => {
+  cy.visit('/')
+  cy.get('#projects-count')
+    .invoke('text')
+    .then(parseInt)
+    .then((n) => {
+      cy.log(n)
+      expect(n, 'number of projects').to.be.within(350, 400)
+    })
+})
+```
+
+## Preprocessor sync mode
+
+It might seem redundant to always write `n = await cy...`, thus there is a "sync" mode preprocessor where you can write the spec code without using `await` before each Cypress chain.
+
+```js
+// cypress.config.js
+const { defineConfig } = require('cypress')
+// https://github.com/bahmutov/cypress-await
+const cyAwaitPreprocessor = require('cypress-await/src/preprocessor-sync-mode')
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      on('file:preprocessor', cyAwaitPreprocessor)
+    },
+  },
+})
+```
+
+We can get the parsed number of projects from the page
+
+```js
+it('shows the number of projects', () => {
+  cy.visit('/')
+  const n = cy.get('#projects-count').invoke('text').then(parseInt)
+  cy.log(n)
+  expect(n, 'number of projects').to.be.within(350, 400)
+})
+```
 
 ## Small print
 
