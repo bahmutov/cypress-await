@@ -11,7 +11,8 @@
     "watch": "ava -w",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "badges": "npx -p dependency-version-badge update-badge cypress"
   },
   "keywords": [
     "cypress-plugin"
