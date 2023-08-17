@@ -8,6 +8,12 @@
 📺 Watch video [Await Cypress Command Results](https://www.youtube.com/watch?v=5faeSbvCJQY)
 🖥️ Repo [bahmutov/cypress-todomvc-await-example](https://github.com/bahmutov/cypress-todomvc-await-example)
 
+## Todos
+
+- switch from `@cypress/browserify-preprocessor` to `@cypress/webpack-batteries-included-preprocessor` for bundling transpiled spec
+- support relative `require` and `import` statements in the transpiled specs [#9](https://github.com/bahmutov/cypress-await/issues/9)
+- support absolute `require` and `import` statements in the transpiled specs [#10](https://github.com/bahmutov/cypress-await/issues/10)
+
 ## Install
 
 Add this package as a dev dependency
