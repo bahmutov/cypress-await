@@ -2,6 +2,12 @@
 
 > Cypress spec preprocessor that adds the "async / await" syntax
 
+## Examples
+
+📝 Read blog post [Use Async Await In Cypress Specs](https://glebbahmutov.com/blog/use-async-await-in-cypress-specs/)
+📺 Watch video [Await Cypress Command Results](https://www.youtube.com/watch?v=5faeSbvCJQY)
+🖥️ Repo [bahmutov/cypress-todomvc-await-example](https://github.com/bahmutov/cypress-todomvc-await-example)
+
 ## Install
 
 Add this package as a dev dependency
