@@ -6,7 +6,7 @@
 
 - 📝 Read blog post [Use Async Await In Cypress Specs](https://glebbahmutov.com/blog/use-async-await-in-cypress-specs/)
 - 📺 Watch video [Await Cypress Command Results](https://www.youtube.com/watch?v=5faeSbvCJQY)
-- 📺 Watch video [Use Async Await In Cypress Specs](https://youtu.be/opOopVq5AmA)
+- 📺 Watch video [cypress-await Sync Mode Example](https://youtu.be/opOopVq5AmA)
 - 🖥️ Repo [bahmutov/cypress-todomvc-await-example](https://github.com/bahmutov/cypress-todomvc-await-example)
 
 ## Todos
