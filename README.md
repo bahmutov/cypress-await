@@ -1,4 +1,4 @@
-# cypress-await ![cypress version](https://img.shields.io/badge/cypress-12.17.3-brightgreen)
+# cypress-await ![cypress version](https://img.shields.io/badge/cypress-13.0.0-brightgreen)
 
 > Cypress spec preprocessor that adds the "async / await" syntax
 
