@@ -10,6 +10,11 @@
 - 📺 Watch video [Type Placeholders Into The Form: manp and cypress-await example](https://youtu.be/Z4nDKbWMkJc)
 - 🖥️ Repo [bahmutov/cypress-todomvc-await-example](https://github.com/bahmutov/cypress-todomvc-await-example)
 
+🎓 Covered in my [Cypress Plugins course](https://cypress.tips/courses/cypress-plugins)
+
+- [Lesson n6: Paginate using the await keyword](https://cypress.tips/courses/cypress-plugins/lessons/n6)
+- [Lesson n7: Paginate using synchronous code](https://cypress.tips/courses/cypress-plugins/lessons/n7)
+
 ## Todos
 
 - switch from `@cypress/browserify-preprocessor` to `@cypress/webpack-batteries-included-preprocessor` for bundling transpiled spec
