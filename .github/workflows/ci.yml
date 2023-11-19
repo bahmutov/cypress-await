@@ -15,7 +15,7 @@ jobs:
           build: npm test
 
   release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     # only try releasing from the main branch
     if: github.ref == 'refs/heads/main'
     needs:
