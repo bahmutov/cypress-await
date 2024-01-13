@@ -21,7 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "acorn-walk": "^8.2.0",
-    "ava": "^5.3.1",
+    "ava": "^6.0.0",
     "common-tags": "^1.8.2",
     "cypress": "^13.0.0",
     "prettier": "^3.0.0",
