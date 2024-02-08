@@ -23,7 +23,8 @@
     "acorn-walk": "^8.2.0",
     "ava": "^6.0.0",
     "common-tags": "^1.8.2",
-    "cypress": "^13.0.0",
+    "cypress": "^13.6.4",
+    "cypress-map": "^1.30.0",
     "prettier": "^3.0.0",
     "semantic-release": "^21.0.7"
   },
