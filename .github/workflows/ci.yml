@@ -14,12 +14,23 @@ jobs:
           # run unit tests
           build: npm test
 
+  test-sync-mode:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          config-file: cypress-sync.config.js
+
   release:
     runs-on: ubuntu-22.04
     # only try releasing from the main branch
     if: github.ref == 'refs/heads/main'
     needs:
       - test
+      - test-sync-mode
     steps:
       - name: Checkout
         # https://github.com/actions/checkout
