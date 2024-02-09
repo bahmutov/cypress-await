@@ -34,7 +34,7 @@
     "chokidar": "^3.5.3",
     "debug": "^4.3.4",
     "minimatch": "^9.0.3",
-    "temp-write": "^4.0.0",
+    "temp-write": "^5.0.0",
     "through2": "^4.0.2"
   },
   "repository": {
