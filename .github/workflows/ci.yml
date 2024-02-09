@@ -1,6 +1,20 @@
 name: ci
 on: push
 jobs:
+  unit:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Install npm dependencies, cache them correctly
+      # but don't run Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+      - name: Run unit tsts
+        run: npm test
+
   test:
     runs-on: ubuntu-22.04
     steps:
@@ -29,6 +43,7 @@ jobs:
     # only try releasing from the main branch
     if: github.ref == 'refs/heads/main'
     needs:
+      - unit
       - test
       - test-sync-mode
     steps:

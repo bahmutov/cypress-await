@@ -25,16 +25,14 @@
     "common-tags": "^1.8.2",
     "cypress": "^13.6.4",
     "cypress-map": "^1.30.0",
-    "prettier": "^3.0.0",
-    "semantic-release": "^21.0.7"
+    "prettier": "^3.2.5",
+    "semantic-release": "^23.0.2"
   },
   "dependencies": {
     "@babel/core": "^7.22.9",
     "@cypress/browserify-preprocessor": "^3.0.2",
-    "chokidar": "^3.5.3",
     "debug": "^4.3.4",
     "minimatch": "^9.0.3",
-    "temp-write": "^4.0.0",
     "through2": "^4.0.2"
   },
   "repository": {
