@@ -9,9 +9,11 @@ function cypressAwaitTransform(file) {
     debug('transforming %s', file)
     const source = buf.toString('utf8')
     const output = cyAwait(source)
-    verbose('transpiled output for %s', file)
-    verbose(output)
-    verbose('----')
+    if (verbose.enabled) {
+      verbose('transformed source for %s', file)
+      console.error(output)
+      verbose('----')
+    }
     this.push(output)
     next()
   })
