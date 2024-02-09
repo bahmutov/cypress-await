@@ -7,6 +7,7 @@ const cyBrowserify = require('@cypress/browserify-preprocessor')()
 const tempWrite = require('temp-write')
 const { minimatch } = require('minimatch')
 const { cyAwait } = require('./cy-await')
+const { cypressAwaitTransform } = require('./transform')
 
 // bundled[filename] => promise
 const bundled = {}
