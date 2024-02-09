@@ -143,6 +143,13 @@ Start Cypress with OS environment variable `DEBUG=cypress-await`
 $ DEBUG=cypress-await npx cypress open
 ```
 
+To see even more output enable the verbose debug logs with `DEBUG=cypress-await:verbose`
+
+```
+# on Mac or Linux
+$ DEBUG=cypress-await:verbose npx cypress open
+```
+
 ## Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2023
