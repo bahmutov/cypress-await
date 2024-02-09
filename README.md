@@ -19,8 +19,6 @@
 ## Todos
 
 - switch from `@cypress/browserify-preprocessor` to `@cypress/webpack-batteries-included-preprocessor` for bundling transpiled spec
-- support relative `require` and `import` statements in the transpiled specs [#9](https://github.com/bahmutov/cypress-await/issues/9)
-- support absolute `require` and `import` statements in the transpiled specs [#10](https://github.com/bahmutov/cypress-await/issues/10)
 
 ## Install
 
