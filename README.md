@@ -9,6 +9,7 @@
 - 📺 Watch video [Await Cypress Command Results](https://www.youtube.com/watch?v=5faeSbvCJQY)
 - 📺 Watch video [cypress-await Sync Mode Example](https://youtu.be/opOopVq5AmA)
 - 📺 Watch video [Type Placeholders Into The Form: manp and cypress-await example](https://youtu.be/Z4nDKbWMkJc)
+- 📺 Watch video [Click Button If Enabled Using cypress-if And cypress-await Plugins](https://youtu.be/H04FSnH-6U0)
 - 🖥️ Repo [bahmutov/cypress-todomvc-await-example](https://github.com/bahmutov/cypress-todomvc-await-example)
 
 🎓 Covered in my [Cypress Plugins course](https://cypress.tips/courses/cypress-plugins)

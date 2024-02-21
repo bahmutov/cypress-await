@@ -6,6 +6,7 @@ it(
   () => {
     cy.visit('cypress/fixtures/enabled-button.html')
     const enabled = cy.contains('button', 'Click Me').invoke('is', ':enabled')
+    cy.log(`enabled? ${enabled}`)
     if (enabled) {
       cy.contains('button', 'Click Me').click().should('have.text', 'Clicked')
     } else {
