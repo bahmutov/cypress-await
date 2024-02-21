@@ -10,6 +10,7 @@
     "test": "ava",
     "watch": "ava -w",
     "cy:open": "cypress open",
+    "cy:open:sync": "cypress open --config-file cypress-sync.config.js",
     "cy:run": "cypress run",
     "semantic-release": "semantic-release",
     "badges": "npx -p dependency-version-badge update-badge cypress"

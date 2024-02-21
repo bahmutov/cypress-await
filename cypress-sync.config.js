@@ -1,4 +1,5 @@
 const { defineConfig } = require('cypress')
+// https://github.com/bahmutov/cypress-await
 const cyAwaitPreprocessor = require('./src/preprocessor-sync-mode')
 
 module.exports = defineConfig({
