@@ -6,6 +6,7 @@
 
 - 📝 Read blog post [Use Async Await In Cypress Specs](https://glebbahmutov.com/blog/use-async-await-in-cypress-specs/)
 - 📝 Read blog post [Use Cypress For API Testing](https://glebbahmutov.com/blog/use-cypress-for-api-testing/)
+- 📝 Read blog post [Click Button If Enabled](https://glebbahmutov.com/blog/click-button-if-enabled/)
 - 📺 Watch video [Await Cypress Command Results](https://www.youtube.com/watch?v=5faeSbvCJQY)
 - 📺 Watch video [cypress-await Sync Mode Example](https://youtu.be/opOopVq5AmA)
 - 📺 Watch video [Type Placeholders Into The Form: manp and cypress-await example](https://youtu.be/Z4nDKbWMkJc)
