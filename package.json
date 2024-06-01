@@ -27,7 +27,7 @@
     "cypress": "^13.6.4",
     "cypress-map": "^1.30.0",
     "prettier": "^3.2.5",
-    "semantic-release": "^23.0.2"
+    "semantic-release": "^24.0.0"
   },
   "dependencies": {
     "@babel/core": "^7.22.9",
